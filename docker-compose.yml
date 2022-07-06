@@ -1,0 +1,17 @@
+version: "2.1"
+volumes:
+  scripts:
+services:
+  meetbot:
+    labels:
+      io.balena.features.supervisor-api: '1'
+    context: . 
+    ports:
+      - "80:80"
+  cron:
+    restart: always
+    image: ghcr.io/rcooke-warwick/cron:latest
+    volumes:
+      - "scripts:/data"
+    ports:
+      - "80:3000"
